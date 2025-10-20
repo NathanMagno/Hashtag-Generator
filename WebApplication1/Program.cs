@@ -16,10 +16,10 @@ builder.Services.AddSwaggerGen(opt =>
 
 var app = builder.Build();
 
-// Lista em memória para armazenar histórico das hashtags geradas
+
 var hashtagHistory = new List<object>();
 
-// Ativa Swagger UI
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// Endpoint GET /hashtags (retorna todo histórico de hashtags geradas)
+
 app.MapGet("/hashtags", () =>
 {
     return Results.Ok(hashtagHistory);
@@ -44,7 +44,6 @@ app.MapGet("/hashtags", () =>
     return operation;
 });
 
-// Endpoint POST /hashtags
 app.MapPost("/hashtags", async (HashtagRequest req) =>
 {
     if (req.Count < 1 || req.Count > 30)
@@ -79,7 +78,7 @@ Tema: {req.Text}";
 
     var responseObj = new { model = req.Model, count = hashtags.Count, hashtags };
 
-    // Adiciona resultado ao histórico
+  
     hashtagHistory.Add(responseObj);
 
     return Results.Ok(responseObj);
@@ -91,6 +90,5 @@ Tema: {req.Text}";
 
 app.Run();
 
-// Models no final ou arquivo separado!
 public record HashtagRequest(string Text, int Count, string Model);
 public record OllamaResponse(string response);
