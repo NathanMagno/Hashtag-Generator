@@ -16,9 +16,7 @@ builder.Services.AddSwaggerGen(opt =>
 
 var app = builder.Build();
 
-
 var hashtagHistory = new List<object>();
-
 
 if (app.Environment.IsDevelopment())
 {
@@ -29,7 +27,6 @@ if (app.Environment.IsDevelopment())
         opt.RoutePrefix = "swagger";
     });
 }
-
 
 app.MapGet("/hashtags", () =>
 {
@@ -55,34 +52,39 @@ app.MapPost("/hashtags", async (HashtagRequest req) =>
     string ollamaPrompt = $@"
 Gere exatamente {req.Count} hashtags em português, sem espaços, sem duplicatas, formato JSON:
 {{""model"": ""{req.Model}"", ""count"": {req.Count}, ""hashtags"": [""#hashtag1"", ""#hashtag2"", ...]}}
-Tema: {req.Text}";
+Tema: {req.Text}
+Responda apenas com JSON válido.";
 
     using var http = new HttpClient();
-    var ollamaRequest = new { model = req.Model, prompt = ollamaPrompt, stream = false };
+    var ollamaRequest = new { model = req.Model, prompt = ollamaPrompt, stream = false, format = "json" };
     var ollamaResponse = await http.PostAsJsonAsync("http://localhost:11434/api/generate", ollamaRequest);
 
     if (!ollamaResponse.IsSuccessStatusCode)
         return Results.Problem("Falha ao consultar o Ollama.", statusCode: 500);
 
-    var rawResponse = await ollamaResponse.Content.ReadFromJsonAsync<OllamaResponse>();
-    if (rawResponse is null || string.IsNullOrEmpty(rawResponse.response))
-        return Results.Problem("Ollama não retornou resposta válida.", statusCode: 500);
+    OllamaResponse? rawResponse;
+    try
+    {
+        rawResponse = await ollamaResponse.Content.ReadFromJsonAsync<OllamaResponse>();
+        if (rawResponse is null || string.IsNullOrEmpty(rawResponse.response))
+            return Results.Problem("Ollama não retornou resposta válida.", statusCode: 500);
 
-    var jsonDoc = System.Text.Json.JsonDocument.Parse(rawResponse.response);
-    var hashtagsElem = jsonDoc.RootElement.GetProperty("hashtags");
-    var hashtags = hashtagsElem.EnumerateArray()
-                           .Select(x => x.GetString()!.Replace(" ", ""))
-                           .Distinct()
-                           .Take(req.Count)
-                           .ToList();
+        var jsonDoc = System.Text.Json.JsonDocument.Parse(rawResponse.response);
+        var hashtagsElem = jsonDoc.RootElement.GetProperty("hashtags");
+        var hashtags = hashtagsElem.EnumerateArray()
+            .Select(x => x.GetString()!.Replace(" ", ""))
+            .Distinct()
+            .Take(req.Count)
+            .ToList();
 
-    var responseObj = new { model = req.Model, count = hashtags.Count, hashtags };
-
-  
-    hashtagHistory.Add(responseObj);
-
-    return Results.Ok(responseObj);
-
+        var responseObj = new { model = req.Model, count = hashtags.Count, hashtags };
+        hashtagHistory.Add(responseObj);
+        return Results.Ok(responseObj);
+    }
+    catch
+    {
+        return Results.Problem("A resposta do Ollama não pôde ser convertida para JSON. Tente ajustar o prompt ou use outro modelo.", statusCode: 500);
+    }
 })
 .WithName("GenerateHashtags")
 .WithTags("Hashtags")

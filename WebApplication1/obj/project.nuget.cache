@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CedOMjlqV8U=",
+  "dgSpecHash": "ardfAIWqVfM=",
   "success": true,
   "projectFilePath": "C:\\Users\\Nathan\\RiderProjects\\Hashtag Generator API\\WebApplication1\\WebApplication1.csproj",
   "expectedPackageFiles": [
@@ -11,8 +11,7 @@
     "C:\\Users\\Nathan\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\9.0.6\\swashbuckle.aspnetcore.swagger.9.0.6.nupkg.sha512",
     "C:\\Users\\Nathan\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\9.0.6\\swashbuckle.aspnetcore.swaggergen.9.0.6.nupkg.sha512",
     "C:\\Users\\Nathan\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\9.0.6\\swashbuckle.aspnetcore.swaggerui.9.0.6.nupkg.sha512",
-    "C:\\Users\\Nathan\\.nuget\\packages\\system.net.http.json\\9.0.10\\system.net.http.json.9.0.10.nupkg.sha512",
-    "C:\\Users\\Nathan\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.200\\microsoft.net.sdk.compilers.toolset.9.0.200.nupkg.sha512"
+    "C:\\Users\\Nathan\\.nuget\\packages\\system.net.http.json\\9.0.10\\system.net.http.json.9.0.10.nupkg.sha512"
   ],
   "logs": []
 }
