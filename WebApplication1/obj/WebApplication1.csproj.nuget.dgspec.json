@@ -55,9 +55,17 @@
               "target": "Package",
               "version": "[9.0.10, )"
             },
-            "Scalar.AspNetCore": {
+            "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[2.9.0, )"
+              "version": "[9.0.6, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerUI": {
+              "target": "Package",
+              "version": "[9.0.6, )"
             },
             "System.Net.Http.Json": {
               "target": "Package",
