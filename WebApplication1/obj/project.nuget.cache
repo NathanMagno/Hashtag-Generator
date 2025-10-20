@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "22ckLDAtxY8=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Nathan\\RiderProjects\\Hashtag Generator API\\WebApplication1\\WebApplication1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Nathan\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.10\\microsoft.aspnetcore.openapi.9.0.10.nupkg.sha512",
+    "C:\\Users\\Nathan\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512",
+    "C:\\Users\\Nathan\\.nuget\\packages\\scalar.aspnetcore\\2.9.0\\scalar.aspnetcore.2.9.0.nupkg.sha512",
+    "C:\\Users\\Nathan\\.nuget\\packages\\system.net.http.json\\9.0.10\\system.net.http.json.9.0.10.nupkg.sha512",
+    "C:\\Users\\Nathan\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.200\\microsoft.net.sdk.compilers.toolset.9.0.200.nupkg.sha512"
+  ],
+  "logs": []
+}
